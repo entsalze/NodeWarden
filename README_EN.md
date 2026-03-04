@@ -30,7 +30,7 @@
 | Folders / Favorites | ✅ | ✅ | Common vault organization supported |
 | Full sync `/api/sync` | ✅ | ✅ | Compatibility and performance optimized |
 | Attachment upload/download | ✅ | ✅ | Backed by Cloudflare R2 |
-| Import / export (common clients) | ✅ | ✅ | Common import and export paths covered |
+| mport / export | ✅ | ✅ | Fully implemented, including Bitwarden vault + attachments ZIP import. |
 | Website icon proxy | ✅ | ✅ | Via `/icons/{hostname}/icon.png` |
 | passkey、TOTP fields | ❌ | ✅ | Official service requires premium; NodeWarden does not |
 | Multi-user | ✅ | ✅ | Full user management with invitation mechanism |
