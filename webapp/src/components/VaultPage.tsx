@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import VaultDialogs from '@/components/vault/VaultDialogs';
 import VaultDetailView from '@/components/vault/VaultDetailView';
 import VaultEditor from '@/components/vault/VaultEditor';
@@ -29,6 +29,7 @@ import { computeSshFingerprint, generateDefaultSshKeyMaterial } from '@/lib/ssh'
 import { ChevronLeft } from 'lucide-preact';
 import type { Cipher, CustomFieldType, Folder, VaultDraft, VaultDraftField } from '@/lib/types';
 import { t } from '@/lib/i18n';
+import { Button } from '@/components/ui/Button';
 
 interface VaultPageProps {
   ciphers: Cipher[];
@@ -808,7 +809,7 @@ function folderName(id: string | null | undefined): string {
     setBusy(true);
     try {
       await props.onBulkDeleteFolders(props.folders.map((folder) => folder.id));
-      if (sidebarFilter.kind === 'folder') {
+      if (sidebarFilter.kind === 'folder' && sidebarFilter.folderId === props.folders[0].id) {
         setSidebarFilter({ kind: 'all' });
       }
       setDeleteAllFoldersOpen(false);
@@ -819,10 +820,10 @@ function folderName(id: string | null | undefined): string {
 
   return (
     <>
-      <div className={`vault-grid ${isMobileLayout ? `mobile-panel-${mobilePanel}` : ''}`}>
+      <div className={`grid grid-cols-[240px_minmax(420px,46%)_minmax(575px,1fr)] gap-3 h-full min-h-0 p-0.5 ${isMobileLayout ? `flex flex-col` : ''}`}>
         {isMobileLayout && (
           <div
-            className={`mobile-sidebar-mask ${mobileSidebarOpen ? 'open' : ''}`}
+            className={`fixed inset-0 bg-slate-950/36 z-54 transition-all duration-220 ease-smooth ${mobileSidebarOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}
             onClick={() => {
               if (!mobileSidebarOpen) return;
               setMobileSidebarOpen(false);
@@ -925,24 +926,24 @@ function folderName(id: string | null | undefined): string {
           listSubtitle={listSubtitle}
         />
 
-        <section className={`detail-col ${isMobileLayout ? 'mobile-detail-sheet' : ''} ${isMobileLayout && mobilePanel !== 'list' ? 'open' : ''}`}>
+        <section className={`overflow-auto min-h-0 ${isMobileLayout ? 'fixed inset-x-0 bottom-0 z-50 bg-panel h-[85vh] rounded-t-[32px] shadow-2xl translate-y-full transition-transform duration-300' : ''} ${isMobileLayout && mobilePanel !== 'list' ? 'translate-y-0' : ''}`}>
           {isMobileLayout && mobilePanel !== 'list' && (
-            <div className="mobile-panel-head">
-              <button
-                type="button"
-                className="btn btn-secondary small mobile-panel-back"
+            <div className="flex items-center p-4 border-b border-line">
+              <Button
+                variant="secondary"
+                size="small"
                 onClick={() => {
                   if (isEditing) cancelEdit();
                   else setMobilePanel('list');
                 }}
+                icon={ChevronLeft}
               >
-                <ChevronLeft size={14} className="btn-icon" />
                 {t('txt_back')}
-              </button>
+              </Button>
             </div>
           )}
           {isEditing && draft && (
-            <div key={`editor-${draft.id || selectedCipher?.id || 'new'}-${draft.type}`} className="detail-switch-stage">
+            <div key={`editor-${draft.id || selectedCipher?.id || 'new'}-${draft.type}`} className="animate-fade-in-up">
               <VaultEditor
                 draft={draft}
                 isCreating={isCreating}
@@ -981,7 +982,7 @@ function folderName(id: string | null | undefined): string {
           )}
 
           {!isEditing && selectedCipher && (
-            <div key={`detail-${selectedCipher.id}`} className="detail-switch-stage">
+            <div key={`detail-${selectedCipher.id}`} className="animate-fade-in-up">
               <VaultDetailView
                 selectedCipher={selectedCipher}
                 repromptApprovedCipherId={repromptApprovedCipherId}
@@ -1004,7 +1005,7 @@ function folderName(id: string | null | undefined): string {
             </div>
           )}
 
-          {!isEditing && !selectedCipher && <div className="empty card">{t('txt_select_an_item')}</div>}
+          {!isEditing && !selectedCipher && <div className="text-center text-muted p-10 bg-panel border border-line rounded-2xl shadow-sm">{t('txt_select_an_item')}</div>}
         </section>
       </div>
 
@@ -1100,4 +1101,3 @@ function folderName(id: string | null | undefined): string {
     </>
   );
 }
-

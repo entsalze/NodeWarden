@@ -3,6 +3,7 @@ import { useEffect, useState } from 'preact/hooks';
 import type { ComponentChildren } from 'preact';
 import { TriangleAlert } from 'lucide-preact';
 import { t } from '@/lib/i18n';
+import { Button } from '@/components/ui/Button';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -84,16 +85,19 @@ export default function ConfirmDialog(props: ConfirmDialogProps) {
   useDialogLifecycle(present, canDismiss ? props.onCancel : null);
 
   if (!present || typeof document === 'undefined') return null;
+
+  const isOpen = props.open && !closing;
+
   return createPortal((
     <div
-      className={`dialog-mask ${props.variant === 'warning' ? 'warning' : ''} ${props.open && !closing ? 'open' : ''} ${closing ? 'closing' : ''}`}
+      className={`fixed inset-0 flex items-center justify-center p-4 z-[90] transition-all duration-240 ease-smooth ${props.variant === 'warning' ? 'bg-amber-950/20' : 'bg-slate-950/40'} ${isOpen ? 'opacity-100 visible backdrop-blur-[2px]' : 'opacity-0 invisible pointer-events-none'}`}
       onClick={(event) => {
         if (event.target !== event.currentTarget || !canDismiss) return;
         props.onCancel();
       }}
     >
       <form
-        className={`dialog-card ${props.variant === 'warning' ? 'warning' : ''} ${props.open && !closing ? 'open' : ''} ${closing ? 'closing' : ''}`}
+        className={`w-full max-w-[420px] bg-panel border border-line rounded-[22px] shadow-lg p-6 relative overflow-hidden transition-all duration-240 ease-out-strong ${isOpen ? 'animate-dialog-in opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4 pointer-events-none'} ${props.variant === 'warning' ? 'border-amber-200' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-label={props.title}
@@ -105,38 +109,41 @@ export default function ConfirmDialog(props: ConfirmDialogProps) {
       >
         {props.variant === 'warning' ? (
           <>
-            <div className="dialog-warning-strip" aria-hidden="true" />
-            <div className="dialog-warning-head">
-              <div className="dialog-warning-badge" aria-hidden="true">
-                <TriangleAlert size={24} />
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-amber-400" aria-hidden="true" />
+            <div className="flex flex-col items-center gap-2 mt-2 mb-4">
+              <div className="w-14 h-14 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center" aria-hidden="true">
+                <TriangleAlert size={32} />
               </div>
-              <div className="dialog-warning-kicker">{t('txt_warning')}</div>
+              <div className="text-amber-800 font-extrabold text-sm uppercase tracking-wider">{t('txt_warning')}</div>
             </div>
           </>
         ) : null}
-        <h3 className="dialog-title">{props.title}</h3>
-        <div className={`dialog-message ${props.variant === 'warning' ? 'warning' : ''}`}>{props.message}</div>
+        <h3 className="text-xl font-extrabold mb-3 text-text text-center">{props.title}</h3>
+        <div className={`text-slate-600 leading-relaxed mb-6 text-center ${props.variant === 'warning' ? 'text-slate-700' : ''}`}>{props.message}</div>
         {props.children}
-        <button
-          type="submit"
-          className={`btn ${props.danger ? 'btn-danger' : 'btn-primary'} dialog-btn`}
-          disabled={props.confirmDisabled}
-        >
-          {props.confirmText || t('txt_yes')}
-        </button>
-        {!props.hideCancel && (
-          <button
-            type="button"
-            className="btn btn-secondary dialog-btn"
-            disabled={props.cancelDisabled}
-            onClick={() => {
-              if (props.cancelDisabled) return;
-              props.onCancel();
-            }}
+        <div className="flex flex-col gap-2">
+          <Button
+            type="submit"
+            variant={props.danger ? 'danger' : 'primary'}
+            className="w-full h-11 rounded-xl"
+            disabled={props.confirmDisabled}
           >
-            {props.cancelText || t('txt_no')}
-          </button>
-        )}
+            {props.confirmText || t('txt_yes')}
+          </Button>
+          {!props.hideCancel && (
+            <Button
+              variant="secondary"
+              className="w-full h-11 rounded-xl"
+              disabled={props.cancelDisabled}
+              onClick={() => {
+                if (props.cancelDisabled) return;
+                props.onCancel();
+              }}
+            >
+              {props.cancelText || t('txt_no')}
+            </Button>
+          )}
+        </div>
         {props.afterActions}
       </form>
     </div>
