@@ -49,18 +49,18 @@ function PasswordField(props: {
 }) {
   const [show, setShow] = useState(false);
   return (
-    <label className="field">
-      <span>{props.label}</span>
-      <div className="password-wrap">
+    <label className="block mb-3.5">
+      <span className="block mb-2 text-sm font-semibold">{props.label}</span>
+      <div className="relative">
         <input
-          className="input"
+          className="input pr-11"
           type={show ? 'text' : 'password'}
           value={props.value}
           onInput={(e) => props.onInput((e.currentTarget as HTMLInputElement).value)}
           autoFocus={props.autoFocus}
           autoComplete={props.autoComplete}
         />
-        <button type="button" className="eye-btn" onClick={() => setShow((v) => !v)}>
+        <button type="button" className="absolute right-2.5 bottom-2.25 w-7.5 h-7.5 border-none bg-transparent cursor-pointer grid place-items-center text-slate-700 transition-all duration-180 ease-smooth hover:text-primary hover:-translate-y-px hover:scale-104" onClick={() => setShow((v) => !v)}>
           {show ? <EyeOff size={16} /> : <Eye size={16} />}
         </button>
       </div>
@@ -75,7 +75,7 @@ export default function AuthViews(props: AuthViewsProps) {
 
   if (props.mode === 'locked') {
     return (
-      <div className="auth-page">
+      <div className="min-h-full grid place-items-center p-6 relative bg-transparent">
         <StandalonePageFrame title={t('txt_unlock_vault')}>
           <form
             onSubmit={(e) => {
@@ -83,7 +83,7 @@ export default function AuthViews(props: AuthViewsProps) {
               props.onSubmitUnlock();
             }}
           >
-            <p className="muted standalone-muted">{props.emailForLock}</p>
+            <p className="m-0 mb-4 text-center text-muted leading-relaxed text-left">{props.emailForLock}</p>
             <input type="text" value={props.emailForLock} autoComplete="username" readOnly hidden tabIndex={-1} aria-hidden="true" />
             <PasswordField
               label={t('txt_master_password')}
@@ -92,11 +92,11 @@ export default function AuthViews(props: AuthViewsProps) {
               autoComplete="current-password"
               onInput={props.onChangeUnlock}
             />
-            <div className="auth-support-row">
+            <div className="flex items-center justify-between mt-[-4px] mb-3">
               <span />
               <button
                 type="button"
-                className="auth-link-btn"
+                className="border-none bg-transparent text-primary text-sm font-bold cursor-pointer p-1 transition-opacity duration-180 hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={props.onShowLockedPasswordHint}
                 disabled={unlockBusy || props.unlockPreparing}
               >
@@ -104,15 +104,15 @@ export default function AuthViews(props: AuthViewsProps) {
               </button>
             </div>
             {props.unlockPreparing ? (
-              <p className="muted standalone-muted">{t('txt_loading')}</p>
+              <p className="m-0 mb-4 text-center text-muted leading-relaxed text-left">{t('txt_loading')}</p>
             ) : null}
-            <button type="submit" className="btn btn-primary full" disabled={unlockBusy || props.unlockPreparing || !props.unlockReady}>
-              <Unlock size={16} className="btn-icon" />
+            <button type="submit" className="btn btn-primary w-full" disabled={unlockBusy || props.unlockPreparing || !props.unlockReady}>
+              <Unlock size={16} className="flex-shrink-0" />
               {unlockBusy ? t('txt_unlocking') : props.unlockPreparing ? t('txt_loading') : t('txt_unlock')}
             </button>
-            <div className="or">{t('txt_or')}</div>
-            <button type="button" className="btn btn-secondary full" onClick={props.onLogout} disabled={unlockBusy}>
-              <LogOut size={16} className="btn-icon" />
+            <div className="text-center my-2.5 text-slate-700">{t('txt_or')}</div>
+            <button type="button" className="btn btn-secondary w-full" onClick={props.onLogout} disabled={unlockBusy}>
+              <LogOut size={16} className="flex-shrink-0" />
               {t('txt_log_out')}
             </button>
           </form>
@@ -123,7 +123,7 @@ export default function AuthViews(props: AuthViewsProps) {
 
   if (props.mode === 'register') {
     return (
-      <div className="auth-page">
+      <div className="min-h-full grid place-items-center p-6 relative bg-transparent">
         <StandalonePageFrame title={t('txt_create_account')}>
           <form
             onSubmit={(e) => {
@@ -131,8 +131,8 @@ export default function AuthViews(props: AuthViewsProps) {
               props.onSubmitRegister();
             }}
           >
-            <label className="field">
-              <span>{t('txt_name')}</span>
+            <label className="block mb-3.5">
+              <span className="block mb-2 text-sm font-semibold">{t('txt_name')}</span>
               <input
                 className="input"
                 value={props.registerValues.name}
@@ -142,8 +142,8 @@ export default function AuthViews(props: AuthViewsProps) {
                 }
               />
             </label>
-            <label className="field">
-              <span>{t('txt_email')}</span>
+            <label className="block mb-3.5">
+              <span className="block mb-2 text-sm font-semibold">{t('txt_email')}</span>
               <input
                 className="input"
                 type="email"
@@ -166,8 +166,8 @@ export default function AuthViews(props: AuthViewsProps) {
               autoComplete="new-password"
               onInput={(v) => props.onChangeRegister({ ...props.registerValues, password2: v })}
             />
-            <label className="field">
-              <span>{t('txt_password_hint_optional')}</span>
+            <label className="block mb-3.5">
+              <span className="block mb-2 text-sm font-semibold">{t('txt_password_hint_optional')}</span>
               <input
                 className="input"
                 maxLength={120}
@@ -178,8 +178,8 @@ export default function AuthViews(props: AuthViewsProps) {
                 }
               />
             </label>
-            <label className="field">
-              <span>{t('txt_invite_code_optional')}</span>
+            <label className="block mb-3.5">
+              <span className="block mb-2 text-sm font-semibold">{t('txt_invite_code_optional')}</span>
               <input
                 className="input"
                 value={props.registerValues.inviteCode}
@@ -189,13 +189,13 @@ export default function AuthViews(props: AuthViewsProps) {
                 }
               />
             </label>
-            <button type="submit" className="btn btn-primary full" disabled={registerBusy}>
-              <UserPlus size={16} className="btn-icon" />
+            <button type="submit" className="btn btn-primary w-full" disabled={registerBusy}>
+              <UserPlus size={16} className="flex-shrink-0" />
               {registerBusy ? t('txt_registering') : t('txt_create_account')}
             </button>
-            <div className="or">{t('txt_or')}</div>
-            <button type="button" className="btn btn-secondary full" onClick={props.onGotoLogin} disabled={registerBusy}>
-              <ArrowLeft size={16} className="btn-icon" />
+            <div className="text-center my-2.5 text-slate-700">{t('txt_or')}</div>
+            <button type="button" className="btn btn-secondary w-full" onClick={props.onGotoLogin} disabled={registerBusy}>
+              <ArrowLeft size={16} className="flex-shrink-0" />
               {t('txt_back_to_login')}
             </button>
           </form>
@@ -205,7 +205,7 @@ export default function AuthViews(props: AuthViewsProps) {
   }
 
   return (
-    <div className="auth-page">
+    <div className="min-h-full grid place-items-center p-6 relative bg-transparent">
       <StandalonePageFrame title={t('txt_log_in')}>
         <form
           onSubmit={(e) => {
@@ -213,8 +213,8 @@ export default function AuthViews(props: AuthViewsProps) {
             props.onSubmitLogin();
           }}
         >
-          <label className="field">
-            <span>{t('txt_email')}</span>
+          <label className="block mb-3.5">
+            <span className="block mb-2 text-sm font-semibold">{t('txt_email')}</span>
             <input
               className="input"
               type="email"
@@ -230,11 +230,11 @@ export default function AuthViews(props: AuthViewsProps) {
             onInput={(v) => props.onChangeLogin({ ...props.loginValues, password: v })}
             autoFocus
           />
-          <div className="auth-support-row">
+          <div className="flex items-center justify-between mt-[-4px] mb-3">
             <span />
             <button
               type="button"
-              className="auth-link-btn"
+              className="border-none bg-transparent text-primary text-sm font-bold cursor-pointer p-1 transition-opacity duration-180 hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={props.onTogglePasswordHint}
               disabled={loginBusy || !props.loginValues.email.trim()}
             >
@@ -243,13 +243,13 @@ export default function AuthViews(props: AuthViewsProps) {
                 : t('txt_show_password_hint')}
             </button>
           </div>
-          <button type="submit" className="btn btn-primary full" disabled={loginBusy}>
-            <LogIn size={16} className="btn-icon" />
+          <button type="submit" className="btn btn-primary w-full" disabled={loginBusy}>
+            <LogIn size={16} className="flex-shrink-0" />
             {loginBusy ? t('txt_logging_in') : t('txt_log_in')}
           </button>
-          <div className="or">{t('txt_or')}</div>
-          <button type="button" className="btn btn-secondary full" onClick={props.onGotoRegister} disabled={loginBusy}>
-            <UserPlus size={16} className="btn-icon" />
+          <div className="text-center my-2.5 text-slate-700">{t('txt_or')}</div>
+          <button type="button" className="btn btn-secondary w-full" onClick={props.onGotoRegister} disabled={loginBusy}>
+            <UserPlus size={16} className="flex-shrink-0" />
             {t('txt_create_account')}
           </button>
         </form>

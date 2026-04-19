@@ -64,19 +64,19 @@ export default function AppGlobalOverlays(props: AppGlobalOverlaysProps) {
         onConfirm={props.onConfirmTotp}
         onCancel={props.onCancelTotp}
         afterActions={(
-          <div className="dialog-extra">
-            <div className="dialog-divider" />
-            <button type="button" className="btn btn-secondary dialog-btn" disabled={props.totpSubmitting} onClick={props.onUseRecoveryCode}>
+          <div className="mt-2">
+            <div className="h-px bg-line my-2" />
+            <button type="button" className="btn btn-secondary w-full h-[50px] text-xl mt-2" disabled={props.totpSubmitting} onClick={props.onUseRecoveryCode}>
               {t('txt_use_recovery_code')}
             </button>
           </div>
         )}
       >
-        <label className="field">
-          <span>{t('txt_totp_code')}</span>
+        <label className="block mb-3.5 text-left">
+          <span className="block mb-2 text-sm font-semibold">{t('txt_totp_code')}</span>
           <input className="input" value={props.totpCode} autoComplete="one-time-code" onInput={(e) => props.onTotpCodeChange((e.currentTarget as HTMLInputElement).value)} />
         </label>
-        <label className="check-line" style={{ marginBottom: 0 }}>
+        <label className="flex items-center gap-2 mb-0 color-slate-700">
           <input type="checkbox" checked={props.rememberDevice} onChange={(e) => props.onRememberDeviceChange((e.currentTarget as HTMLInputElement).checked)} />
           <span>{t('txt_trust_this_device_for_30_days')}</span>
         </label>
@@ -95,8 +95,8 @@ export default function AppGlobalOverlays(props: AppGlobalOverlaysProps) {
         onConfirm={props.onConfirmDisableTotp}
         onCancel={props.onCancelDisableTotp}
       >
-        <label className="field">
-          <span>{t('txt_master_password')}</span>
+        <label className="block mb-3.5 text-left">
+          <span className="block mb-2 text-sm font-semibold">{t('txt_master_password')}</span>
           <input className="input" type="password" autoComplete="current-password" value={props.disableTotpPassword} onInput={(e) => props.onDisableTotpPasswordChange((e.currentTarget as HTMLInputElement).value)} />
         </label>
       </ConfirmDialog>

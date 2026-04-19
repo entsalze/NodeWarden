@@ -1,154 +1,271 @@
-:root {
-  --bg: #e7edf8;
-  --bg-accent: #e7edf8;
-  --panel: #f9fbff;
-  --panel-soft: #f2f6fd;
-  --panel-muted: #e8eff9;
-  --line: rgba(128, 152, 192, 0.32);
-  --line-soft: rgba(143, 167, 206, 0.18);
-  --text: #0b1730;
-  --text-soft: #1a2d52;
-  --muted: #60708b;
-  --muted-strong: #334765;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --primary-strong: #0f3f98;
-  --primary-soft: rgba(37, 99, 235, 0.12);
-  --danger: #d92d57;
-  --danger-hover: #b81f47;
-  --overlay: rgba(15, 23, 42, 0.4);
-  --overlay-strong: rgba(15, 23, 42, 0.56);
-  --shadow-sm: 0 10px 22px rgba(13, 31, 68, 0.045);
-  --shadow-md: 0 22px 48px rgba(13, 31, 68, 0.08);
-  --shadow-lg: 0 28px 76px rgba(13, 31, 68, 0.11);
-  --radius: 16px;
-  --ease-out-strong: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-soft: cubic-bezier(0.24, 0.8, 0.32, 1);
-  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-micro: 140ms;
-  --dur-fast: 180ms;
-  --dur-medium: 240ms;
-  --dur-panel: 280ms;
-  --actions-gap: clamp(0px, calc((100vw - 520px) * 1), 10px);
+@import "tailwindcss";
+@import "./_vars.pcss";
+
+@theme {
+  --color-bg: var(--bg);
+  --color-bg-accent: var(--bg-accent);
+  --color-panel: var(--panel);
+  --color-panel-soft: var(--panel-soft);
+  --color-panel-muted: var(--panel-muted);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-overlay: var(--overlay);
+  --color-overlay-strong: var(--overlay-strong);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --radius-xl: var(--radius);
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes surface-enter {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes shell-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.992);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes route-stage-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 14px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes dialog-out {
+    from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0) scale(0.972);
+    }
+  }
+
+  @keyframes stagger-rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translate3d(18px, 0, 0) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  --animate-fade-in-up: fade-in-up var(--dur-panel) var(--ease-out) both;
+  --animate-surface-enter: surface-enter 520ms var(--ease-out) both;
+  --animate-shell-enter: shell-enter 560ms var(--ease-out) both;
+  --animate-route-stage-in: route-stage-in 240ms var(--ease-out) both;
+  --animate-menu-in: menu-in 190ms var(--ease-out) both;
+  --animate-fade-in: fade-in var(--dur-medium) var(--ease-in-out) both;
+  --animate-fade-out: fade-out var(--dur-medium) var(--ease-in-out) both;
+  --animate-dialog-in: dialog-in 240ms var(--ease-out) both;
+  --animate-dialog-out: dialog-out 220ms var(--ease-in-out) both;
+  --animate-stagger-rise: stagger-rise 520ms var(--ease-out) both;
+  --animate-toast-in: toast-in 240ms var(--ease-out) both;
 }
 
-:root[data-theme='dark'] {
-  --bg: #06111d;
-  --bg-accent: #06111d;
-  --panel: #0d192b;
-  --panel-soft: #112136;
-  --panel-muted: #0a1626;
-  --line: rgba(108, 141, 190, 0.28);
-  --line-soft: rgba(120, 152, 198, 0.16);
-  --text: #edf4ff;
-  --text-soft: #d9e6fb;
-  --muted: #8fa6c6;
-  --muted-strong: #c3d5ef;
-  --primary: #84b6ff;
-  --primary-hover: #a6ccff;
-  --primary-strong: #f3f8ff;
-  --primary-soft: rgba(132, 182, 255, 0.18);
-  --danger: #ff8ba8;
-  --danger-hover: #ffabc0;
-  --overlay: rgba(2, 8, 20, 0.68);
-  --overlay-strong: rgba(2, 8, 20, 0.84);
-  --shadow-sm: 0 14px 28px rgba(1, 7, 18, 0.24);
-  --shadow-md: 0 24px 52px rgba(1, 7, 18, 0.36);
-  --shadow-lg: 0 34px 88px rgba(1, 7, 18, 0.46);
+@layer base {
+  * {
+    @apply border-line;
+    box-sizing: border-box;
+  }
+  html,
+  body,
+  #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--text);
+    background: var(--bg-accent);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  }
+
+  body {
+    position: relative;
+    transition:
+      background-color var(--dur-medium) var(--ease-in-out),
+      color var(--dur-medium) var(--ease-in-out);
+  }
+
+  body.dialog-open {
+    @apply overflow-hidden overscroll-contain;
+  }
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer components {
+  .btn {
+    @apply h-9 border border-transparent rounded-full px-4 text-[15px] font-bold cursor-pointer inline-flex items-center justify-center gap-1.5 no-underline transition-all duration-180 ease-out;
+    transform: translate3d(var(--mag-x, 0), var(--mag-y, 0), 0);
+  }
 
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--text);
-  background: var(--bg-accent);
-  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-}
+  .btn:hover:not(:disabled) {
+    @apply -translate-y-0.5 scale-[1.01];
+    transform: translate3d(var(--mag-x, 0), calc(var(--mag-y, 0) - 2px), 0) scale(1.01);
+  }
 
-body {
-  position: relative;
-  transition:
-    background-color var(--dur-medium) var(--ease-smooth),
-    color var(--dur-medium) var(--ease-smooth);
-}
+  .btn:active:not(:disabled) {
+    @apply translate-y-0 scale-[0.985];
+  }
 
-body.dialog-open {
-  overflow: hidden;
-  overscroll-behavior: contain;
-}
+  .btn-primary {
+    @apply text-white border-[rgba(15,63,152,0.32)] shadow-[0_14px_28px_rgba(37,99,235,0.24)];
+    background: linear-gradient(135deg, #2563eb, #3b82f6 72%);
+  }
 
-body::before {
-  content: none;
-}
+  .btn-primary:hover:not(:disabled) {
+    @apply shadow-[0_18px_34px_rgba(37,99,235,0.28)];
+    background: linear-gradient(135deg, #1d4ed8, #3377f0 72%);
+    border-color: rgba(15, 63, 152, 0.38);
+  }
 
-:root[data-theme='dark'] body::before {
-  content: none;
-}
+  .btn-secondary {
+    @apply bg-panel text-primary-strong border-[rgba(37,99,235,0.22)] shadow-[0_8px_18px_rgba(13,31,68,0.05)];
+  }
 
-.loading-screen {
-  height: 100%;
-  display: grid;
-  place-items: center;
-  color: var(--muted);
-  font-size: 18px;
-  animation: fade-in-up var(--dur-panel) var(--ease-out-strong) both;
-}
+  .btn-secondary:hover:not(:disabled) {
+    @apply bg-[#f4f8ff] border-[rgba(37,99,235,0.34)];
+  }
 
-.auth-page {
-  min-height: 100%;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  position: relative;
-  background: transparent;
-}
+  .btn-icon {
+    @apply flex-shrink-0;
+  }
 
-.public-send-page {
-  min-height: 80vh;
-  align-items: center;
-  justify-items: center;
-}
+  .btn.small {
+    @apply h-7.5 rounded-full text-xs;
+  }
 
-.auth-card {
-  width: 100%;
-  position: relative;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  box-shadow: var(--shadow-lg);
-  padding: 30px;
-  overflow: hidden;
-  transform-origin: 50% 24%;
-  animation: surface-enter 520ms var(--ease-out-strong) both;
-}
+  .input {
+    @apply w-full h-12 border border-[rgba(74,103,150,0.42)] rounded-[14px] px-3.5 py-2.5 text-base outline-none text-text bg-panel transition-all duration-180 ease-in-out;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
 
-.auth-card::before {
-  content: none;
-}
+  .input:focus {
+    @apply border-[rgba(43,102,217,0.6)] bg-[#fbfdff] -translate-y-px;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.11), 0 10px 20px rgba(37, 99, 235, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
 
-.auth-card h1 {
-  margin: 0 0 4px 0;
-  text-align: center;
-}
+  /* Magnetic effect related */
+  .topbar .btn, .user-chip, .side-link, .mobile-tab {
+    --mag-x: 0px;
+    --mag-y: 0px;
+    position: relative;
+    overflow: hidden;
+  }
 
-.standalone-shell {
-  width: min(640px, 100%);
-  display: grid;
-  gap: 14px;
-  animation: fade-in-up 420ms var(--ease-out-strong) both;
-}
+  .topbar .btn::before, .user-chip::before, .side-link::before, .mobile-tab::before {
+    content: '';
+    position: absolute;
+    left: var(--mx, 50%);
+    top: var(--my, 50%);
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.08) 42%, transparent 72%);
+    transform: translate(-50%, -50%) scale(0.68);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-in-out), transform var(--dur-medium) var(--ease-out);
+  }
 
-.standalone-brand {
-  display: inline-flex;
-  align-items: center;
+  .topbar .btn:hover::before, .user-chip:hover::before, .side-link:hover::before, .mobile-tab:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
   gap: 14px;
   margin-bottom: 12px;
 }
@@ -331,10 +448,10 @@ body::before {
   background: var(--panel);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition:
-    border-color var(--dur-fast) var(--ease-smooth),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    background-color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft);
+    border-color var(--dur-fast) var(--ease-in-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 select.input {
@@ -421,7 +538,7 @@ input[type='file'].input::file-selector-button:hover {
   cursor: pointer;
   display: grid;
   place-items: center;
-  transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-out-soft);
+  transition: color var(--dur-fast) var(--ease-in-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .eye-btn {
@@ -436,7 +553,7 @@ input[type='file'].input::file-selector-button:hover {
   display: grid;
   place-items: center;
   color: #334155;
-  transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-out-soft);
+  transition: color var(--dur-fast) var(--ease-in-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .password-toggle:hover,
@@ -459,12 +576,12 @@ input[type='file'].input::file-selector-button:hover {
   gap: 6px;
   text-decoration: none;
   transition:
-    transform var(--dur-fast) var(--ease-out-soft),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    background-color var(--dur-fast) var(--ease-smooth),
-    border-color var(--dur-fast) var(--ease-smooth),
-    color var(--dur-fast) var(--ease-smooth),
-    opacity var(--dur-fast) var(--ease-smooth);
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    border-color var(--dur-fast) var(--ease-in-out),
+    color var(--dur-fast) var(--ease-in-out),
+    opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .topbar-actions .btn,
@@ -493,8 +610,8 @@ input[type='file'].input::file-selector-button:hover {
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-medium) var(--ease-out-soft);
+    opacity var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-medium) var(--ease-out);
 }
 
 .topbar-actions .btn:hover::before,
@@ -596,7 +713,7 @@ input[type='file'].input::file-selector-button:hover {
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-out-soft), opacity var(--dur-fast) var(--ease-smooth);
+  transition: color var(--dur-fast) var(--ease-in-out), transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .auth-link-btn:hover {
@@ -629,7 +746,7 @@ input[type='file'].input::file-selector-button:hover {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: shell-enter 560ms var(--ease-out-strong) both;
+  animation: shell-enter 560ms var(--ease-out) both;
 }
 
 .app-shell::before {
@@ -645,7 +762,7 @@ input[type='file'].input::file-selector-button:hover {
   align-items: center;
   justify-content: space-between;
   padding: 0 18px;
-  transition: background-color var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
+  transition: background-color var(--dur-fast) var(--ease-in-out), border-color var(--dur-fast) var(--ease-in-out);
 }
 
 .brand {
@@ -689,7 +806,7 @@ input[type='file'].input::file-selector-button:hover {
   height: 42px;
   object-fit: contain;
   filter: drop-shadow(0 10px 22px rgba(43, 102, 217, 0.22));
-  transition: transform var(--dur-medium) var(--ease-out-soft), filter var(--dur-medium) var(--ease-out-soft);
+  transition: transform var(--dur-medium) var(--ease-out), filter var(--dur-medium) var(--ease-out);
 }
 
 .topbar-actions {
@@ -743,10 +860,10 @@ input[type='file'].input::file-selector-button:hover {
   background: linear-gradient(180deg, #dceaff, #c8dcff);
   border: 1px solid #9dbbec;
   transition:
-    background var(--dur-medium) var(--ease-out-soft),
-    border-color var(--dur-medium) var(--ease-smooth),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    transform var(--dur-fast) var(--ease-out-soft);
+    background var(--dur-medium) var(--ease-out),
+    border-color var(--dur-medium) var(--ease-in-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
   border-radius: 999px;
 }
 
@@ -762,9 +879,9 @@ input[type='file'].input::file-selector-button:hover {
   background: linear-gradient(180deg, #ffffff, #edf4ff);
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.14);
   transition:
-    transform var(--dur-medium) var(--ease-out-strong),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    background var(--dur-fast) var(--ease-smooth);
+    transform var(--dur-medium) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-in-out);
 }
 
 .theme-switch .sun svg {
@@ -775,7 +892,7 @@ input[type='file'].input::file-selector-button:hover {
   width: 18px;
   height: 18px;
   opacity: 0.95;
-  transition: transform var(--dur-medium) var(--ease-out-soft), opacity var(--dur-fast) var(--ease-smooth);
+  transition: transform var(--dur-medium) var(--ease-out), opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .theme-switch .moon svg {
@@ -787,7 +904,7 @@ input[type='file'].input::file-selector-button:hover {
   width: 16px;
   height: 16px;
   opacity: 0.88;
-  transition: transform var(--dur-medium) var(--ease-out-soft), opacity var(--dur-fast) var(--ease-smooth);
+  transition: transform var(--dur-medium) var(--ease-out), opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .theme-switch-input:checked + .theme-switch-slider {
@@ -841,10 +958,10 @@ input[type='file'].input::file-selector-button:hover {
   box-shadow: 0 10px 18px rgba(13, 31, 68, 0.05);
   transform: translate3d(var(--mag-x), var(--mag-y), 0);
   transition:
-    transform 220ms var(--ease-out-soft),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    border-color var(--dur-fast) var(--ease-smooth),
-    background-color var(--dur-fast) var(--ease-smooth);
+    transform 220ms var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-in-out),
+    background-color var(--dur-fast) var(--ease-in-out);
 }
 
 .user-chip:hover {
@@ -879,11 +996,11 @@ input[type='file'].input::file-selector-button:hover {
   font-weight: 600;
   font-size: 14px;
   transition:
-    background-color var(--dur-fast) var(--ease-smooth),
-    border-color var(--dur-fast) var(--ease-smooth),
-    color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft),
-    box-shadow var(--dur-fast) var(--ease-out-soft);
+    background-color var(--dur-fast) var(--ease-in-out),
+    border-color var(--dur-fast) var(--ease-in-out),
+    color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .side-link:hover {
@@ -939,7 +1056,7 @@ input[type='file'].input::file-selector-button:hover {
 
 @media (min-width: 901px) {
   .route-stage {
-    animation: route-stage-in 240ms var(--ease-out-soft) both;
+    animation: route-stage-in 240ms var(--ease-out) both;
   }
 }
 
@@ -952,8 +1069,8 @@ input[type='file'].input::file-selector-button:hover {
   visibility: hidden;
   pointer-events: none;
   transition:
-    opacity 220ms var(--ease-smooth),
-    visibility 220ms var(--ease-smooth);
+    opacity 220ms var(--ease-in-out),
+    visibility 220ms var(--ease-in-out);
 }
 
 .mobile-sidebar-mask.open {
@@ -1052,10 +1169,10 @@ input[type='file'].input::file-selector-button:hover {
   background: var(--panel);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition:
-    border-color var(--dur-fast) var(--ease-smooth),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    background-color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft);
+    border-color var(--dur-fast) var(--ease-in-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .search-input-wrap {
@@ -1090,7 +1207,7 @@ input[type='file'].input::file-selector-button:hover {
   color: var(--muted);
   cursor: pointer;
   transform: translateY(-50%);
-  transition: background-color var(--dur-fast) var(--ease-out-soft), color var(--dur-fast) var(--ease-out-soft), transform var(--dur-fast) var(--ease-out-soft);
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 
 .search-clear-btn:hover {
@@ -1118,10 +1235,10 @@ input[type='file'].input::file-selector-button:hover {
   align-items: center;
   gap: 8px;
   transition:
-    background-color var(--dur-fast) var(--ease-smooth),
-    color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft),
-    box-shadow var(--dur-fast) var(--ease-out-soft);
+    background-color var(--dur-fast) var(--ease-in-out),
+    color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .tree-btn:hover {
@@ -1169,9 +1286,9 @@ input[type='file'].input::file-selector-button:hover {
   justify-content: center;
   border-radius: 6px;
   transition:
-    color var(--dur-fast) var(--ease-smooth),
-    background-color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft);
+    color var(--dur-fast) var(--ease-in-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .folder-delete-btn:hover {
@@ -1274,7 +1391,7 @@ input[type='file'].input::file-selector-button:hover {
   background: var(--panel);
   box-shadow: var(--shadow-md);
   transform-origin: top right;
-  animation: menu-in 190ms var(--ease-out-strong) both;
+  animation: menu-in 190ms var(--ease-out) both;
 }
 
 .sort-menu-item {
@@ -1292,9 +1409,9 @@ input[type='file'].input::file-selector-button:hover {
   text-align: left;
   cursor: pointer;
   transition:
-    background-color var(--dur-fast) var(--ease-smooth),
-    color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft);
+    background-color var(--dur-fast) var(--ease-in-out),
+    color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .sort-menu-item:hover {
@@ -1337,10 +1454,10 @@ input[type='file'].input::file-selector-button:hover {
   overflow: hidden;
   transform-origin: 50% 50%;
   transition:
-    background-color var(--dur-fast) var(--ease-smooth),
-    border-color var(--dur-fast) var(--ease-smooth),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    transform var(--dur-fast) var(--ease-out-soft);
+    background-color var(--dur-fast) var(--ease-in-out),
+    border-color var(--dur-fast) var(--ease-in-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
   contain: paint;
 }
 
@@ -1353,15 +1470,15 @@ input[type='file'].input::file-selector-button:hover {
     radial-gradient(circle at 18px 50%, rgba(255, 255, 255, 0.28), transparent 44%);
   opacity: 0;
   transition:
-    opacity var(--dur-fast) var(--ease-smooth),
-    transform 320ms var(--ease-out-soft);
+    opacity var(--dur-fast) var(--ease-in-out),
+    transform 320ms var(--ease-out);
   transform: translateX(-8px);
   pointer-events: none;
 }
 
 .stagger-item {
   opacity: 0;
-  animation: stagger-rise 520ms var(--ease-out-strong) both;
+  animation: stagger-rise 520ms var(--ease-out) both;
 }
 
 .list-item:hover {
@@ -1409,7 +1526,7 @@ input[type='file'].input::file-selector-button:hover {
   cursor: pointer;
   position: relative;
   z-index: 1;
-  transition: transform 220ms var(--ease-out-soft);
+  transition: transform 220ms var(--ease-out);
 }
 
 .list-item:hover .row-main,
@@ -1423,7 +1540,7 @@ input[type='file'].input::file-selector-button:hover {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: transform 240ms var(--ease-out-soft), filter 240ms var(--ease-out-soft);
+  transition: transform 240ms var(--ease-out), filter 240ms var(--ease-out);
 }
 
 .list-icon {
@@ -1436,7 +1553,7 @@ input[type='file'].input::file-selector-button:hover {
   display: grid;
   place-items: center;
   color: #64748b;
-  transition: color var(--dur-fast) var(--ease-smooth), transform 240ms var(--ease-out-soft);
+  transition: color var(--dur-fast) var(--ease-in-out), transform 240ms var(--ease-out);
 }
 
 .list-icon-fallback svg {
@@ -1448,7 +1565,7 @@ input[type='file'].input::file-selector-button:hover {
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  transition: transform 220ms var(--ease-out-soft);
+  transition: transform 220ms var(--ease-out);
 }
 
 .list-title {
@@ -1459,7 +1576,7 @@ input[type='file'].input::file-selector-button:hover {
   font-size: 15px;
   font-weight: 700;
   min-width: 0;
-  transition: color var(--dur-fast) var(--ease-smooth), letter-spacing 220ms var(--ease-out-soft);
+  transition: color var(--dur-fast) var(--ease-in-out), letter-spacing 220ms var(--ease-out);
 }
 
 .list-title-text {
@@ -1496,7 +1613,7 @@ input[type='file'].input::file-selector-button:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color var(--dur-fast) var(--ease-smooth), transform 220ms var(--ease-out-soft), opacity var(--dur-fast) var(--ease-smooth);
+  transition: color var(--dur-fast) var(--ease-in-out), transform 220ms var(--ease-out), opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .list-item:hover .list-icon-wrap,
@@ -1793,11 +1910,11 @@ input[type='file'].input::file-selector-button:hover {
   min-width: 0;
   max-width: none;
   transition:
-    transform 220ms var(--ease-out-soft),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    border-color var(--dur-fast) var(--ease-smooth),
-    background-color var(--dur-fast) var(--ease-smooth),
-    opacity var(--dur-fast) var(--ease-smooth);
+    transform 220ms var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-in-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .totp-code-row.is-dragging {
@@ -2514,11 +2631,11 @@ input[type='file'].input::file-selector-button:hover {
   font-weight: 700;
   cursor: pointer;
   transition:
-    border-color var(--dur-fast) var(--ease-smooth),
-    background-color var(--dur-fast) var(--ease-smooth),
-    color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft),
-    box-shadow var(--dur-fast) var(--ease-out-soft);
+    border-color var(--dur-fast) var(--ease-in-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .backup-interval-preset:hover:not(:disabled) {
@@ -2820,7 +2937,7 @@ input[type='file'].input::file-selector-button:hover {
   overflow: hidden;
   z-index: 20;
   transform-origin: bottom left;
-  animation: menu-in 190ms var(--ease-out-strong) both;
+  animation: menu-in 190ms var(--ease-out) both;
 }
 
 .create-menu-item {
@@ -2835,9 +2952,9 @@ input[type='file'].input::file-selector-button:hover {
   align-items: center;
   gap: 8px;
   transition:
-    background-color var(--dur-fast) var(--ease-smooth),
-    color var(--dur-fast) var(--ease-smooth),
-    transform var(--dur-fast) var(--ease-out-soft);
+    background-color var(--dur-fast) var(--ease-in-out),
+    color var(--dur-fast) var(--ease-in-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .create-menu-item:hover {
@@ -2863,11 +2980,11 @@ input[type='file'].input::file-selector-button:hover {
   border-radius: 18px;
   background: color-mix(in srgb, var(--panel) 84%, transparent);
   transition:
-    border-color var(--dur-fast) var(--ease-smooth),
-    background-color var(--dur-fast) var(--ease-smooth),
-    box-shadow var(--dur-fast) var(--ease-out-soft),
-    transform 220ms var(--ease-out-soft),
-    opacity var(--dur-fast) var(--ease-smooth);
+    border-color var(--dur-fast) var(--ease-in-out),
+    background-color var(--dur-fast) var(--ease-in-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform 220ms var(--ease-out),
+    opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .website-row.is-dragging {
@@ -3291,7 +3408,7 @@ input[type='file'].input::file-selector-button:hover {
   z-index: 1200;
   padding: 20px;
   opacity: 0;
-  animation: fade-in var(--dur-medium) var(--ease-smooth) both;
+  animation: fade-in var(--dur-medium) var(--ease-in-out) both;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -3305,7 +3422,7 @@ input[type='file'].input::file-selector-button:hover {
   padding: 20px;
   text-align: center;
   transform-origin: 50% 30%;
-  animation: dialog-in 240ms var(--ease-out-strong) both;
+  animation: dialog-in 240ms var(--ease-out) both;
 }
 
 .dialog-mask.warning {
@@ -3357,11 +3474,11 @@ input[type='file'].input::file-selector-button:hover {
 }
 
 .dialog-mask.closing {
-  animation: fade-out 220ms var(--ease-smooth) both;
+  animation: fade-out 220ms var(--ease-in-out) both;
 }
 
 .dialog-card.closing {
-  animation: dialog-out 220ms var(--ease-smooth) both;
+  animation: dialog-out 220ms var(--ease-in-out) both;
 }
 
 .dialog-card .field {
@@ -3541,7 +3658,7 @@ input[type='file'].input::file-selector-button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: toast-in 240ms var(--ease-out-strong) both;
+  animation: toast-in 240ms var(--ease-out) both;
 }
 
 .toast-item.error {
@@ -3567,7 +3684,7 @@ input[type='file'].input::file-selector-button:hover {
   cursor: pointer;
   font-size: 20px;
   color: inherit;
-  transition: transform var(--dur-fast) var(--ease-out-soft), opacity var(--dur-fast) var(--ease-smooth);
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-in-out);
 }
 
 .toast-close:hover {
@@ -3954,9 +4071,9 @@ input[type='file'].input::file-selector-button:hover {
     padding: 6px 4px;
     border-radius: 12px;
     transition:
-      transform 220ms var(--ease-out-soft),
-      background-color var(--dur-fast) var(--ease-smooth),
-      color var(--dur-fast) var(--ease-smooth);
+      transform 220ms var(--ease-out),
+      background-color var(--dur-fast) var(--ease-in-out),
+      color var(--dur-fast) var(--ease-in-out);
   }
 
   .mobile-tab:hover {
@@ -3998,9 +4115,9 @@ input[type='file'].input::file-selector-button:hover {
     pointer-events: none;
     transform: translate3d(0, 10px, 0) scale(0.98);
     transition:
-      opacity 220ms var(--ease-smooth),
-      transform 240ms var(--ease-out-soft),
-      visibility 220ms var(--ease-smooth);
+      opacity 220ms var(--ease-in-out),
+      transform 240ms var(--ease-out),
+      visibility 220ms var(--ease-in-out);
   }
 
   .mobile-sidebar-sheet.open {
@@ -4036,9 +4153,9 @@ input[type='file'].input::file-selector-button:hover {
     cursor: pointer;
     padding: 0;
     transition:
-      transform var(--dur-fast) var(--ease-out-soft),
-      background-color var(--dur-fast) var(--ease-smooth),
-      border-color var(--dur-fast) var(--ease-smooth);
+      transform var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-in-out),
+      border-color var(--dur-fast) var(--ease-in-out);
   }
 
   .mobile-sidebar-close:hover {
@@ -4219,9 +4336,9 @@ input[type='file'].input::file-selector-button:hover {
     pointer-events: none;
     transform: translate3d(0, 18px, 0);
     transition:
-      opacity 220ms var(--ease-smooth),
-      transform 260ms var(--ease-out-soft),
-      visibility 220ms var(--ease-smooth);
+      opacity 220ms var(--ease-in-out),
+      transform 260ms var(--ease-out),
+      visibility 220ms var(--ease-in-out);
   }
 
   .mobile-detail-sheet.open {

@@ -28,48 +28,48 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
   const routeAnimationKey = props.isImportRoute ? props.importRoute : props.location;
 
   return (
-    <div className="app-page">
-      <div className="app-shell">
-        <header className="topbar">
-          <div className="brand">
-            <img src="/logo-64.png" alt="NodeWarden logo" className="brand-logo" />
-            <img src="/nodewarden-wordmark.svg" alt="NodeWarden" className="brand-wordmark" />
-            <span className="mobile-page-title">{props.currentPageTitle}</span>
+    <div className="min-h-full p-5 relative bg-transparent">
+      <div className="h-[calc(100vh-40px)] max-w-[1600px] mx-auto relative bg-panel-soft border border-line rounded-[28px] shadow-lg flex flex-col overflow-hidden animate-shell-enter">
+        <header className="h-[58px] border-b border-line-soft bg-[rgba(244,248,255,0.72)] flex items-center justify-between px-4.5 transition-colors duration-180 ease-smooth">
+          <div className="inline-flex items-center gap-2 text-[34px] font-extrabold text-text">
+            <img src="/logo-64.png" alt="NodeWarden logo" className="w-10.5 h-10.5 object-contain transition-all duration-240 ease-out-soft [filter:drop-shadow(0_10px_22px_rgba(43,102,217,0.22))]" />
+            <img src="/nodewarden-wordmark.svg" alt="NodeWarden" className="block h-auto w-[clamp(210px,20vw,290px)] max-w-full [filter:drop-shadow(0_12px_24px_rgba(43,102,217,0.12))]" />
+            <span className="hidden min-w-0 max-w-[min(58vw,240px)] overflow-hidden text-ellipsis whitespace-nowrap text-[19px] leading-[1.2] font-extrabold text-[#0f172a]">{props.currentPageTitle}</span>
           </div>
-          <div className="topbar-actions">
+          <div className="flex items-center gap-2.5">
             <div className="user-chip">
               <ShieldUser size={16} />
               <span>{props.profile?.email}</span>
             </div>
             <ThemeSwitch checked={props.darkMode} title={props.themeToggleTitle} onToggle={props.onToggleTheme} />
             <button type="button" className="btn btn-secondary small" onClick={props.onLock}>
-              <Lock size={14} className="btn-icon" /> {t('txt_lock')}
+              <Lock size={14} className="flex-shrink-0" /> {t('txt_lock')}
             </button>
             {props.showSidebarToggle && (
               <button
                 type="button"
-                className="btn btn-secondary small mobile-sidebar-toggle"
+                className="btn btn-secondary small hidden"
                 aria-label={props.sidebarToggleTitle}
                 title={props.sidebarToggleTitle}
                 onClick={() => window.dispatchEvent(new CustomEvent('nodewarden:toggle-sidebar'))}
               >
-                <FolderIcon size={16} className="btn-icon" />
+                <FolderIcon size={16} className="flex-shrink-0" />
               </button>
             )}
-            <div className="mobile-theme-btn">
+            <div className="hidden">
               <ThemeSwitch checked={props.darkMode} title={props.themeToggleTitle} onToggle={props.onToggleTheme} />
             </div>
-            <button type="button" className="btn btn-secondary small mobile-lock-btn" aria-label={t('txt_lock')} title={t('txt_lock')} onClick={props.onLock}>
-              <Lock size={14} className="btn-icon" />
+            <button type="button" className="btn btn-secondary small hidden" aria-label={t('txt_lock')} title={t('txt_lock')} onClick={props.onLock}>
+              <Lock size={14} className="flex-shrink-0" />
             </button>
             <button type="button" className="btn btn-secondary small" onClick={props.onLogout}>
-              <LogOut size={14} className="btn-icon" /> {t('txt_sign_out')}
+              <LogOut size={14} className="flex-shrink-0" /> {t('txt_sign_out')}
             </button>
           </div>
         </header>
 
-        <div className="app-main">
-          <aside className="app-side">
+        <div className="flex-1 min-h-0 grid grid-cols-[200px_1fr]">
+          <aside className="border-r border-line-soft p-4 flex flex-col gap-2">
             <Link href="/vault" className={`side-link ${props.location === '/vault' ? 'active' : ''}`}>
               <KeyRound size={16} />
               <span>{t('nav_my_vault')}</span>
@@ -107,14 +107,14 @@ export default function AppAuthenticatedShell(props: AppAuthenticatedShellProps)
               <span>{t('nav_import_export')}</span>
             </Link>
           </aside>
-          <main className="content">
-            <div key={routeAnimationKey} className="route-stage">
+          <main className="min-h-0 p-3.5 overflow-hidden">
+            <div key={routeAnimationKey} className="h-full min-h-0 overflow-auto animate-route-stage-in">
               <AppMainRoutes {...props.mainRoutesProps} />
             </div>
           </main>
         </div>
 
-        <nav className="mobile-tabbar" aria-label={t('txt_menu')}>
+        <nav className="hidden" aria-label={t('txt_menu')}>
           <Link href="/vault" className={`mobile-tab ${props.mobilePrimaryRoute === '/vault' ? 'active' : ''}`}>
             <KeyRound size={18} />
             <span>{t('nav_my_vault')}</span>

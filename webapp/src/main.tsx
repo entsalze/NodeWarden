@@ -1,7 +1,7 @@
 import { render } from 'preact';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App';
-import './styles.css';
+import './main.pcss';
 
 const queryClient = new QueryClient({
   defaultOptions: {
